@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html ng-app="calcApp">
+<head>
+  <title>ROI Calculator</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <script src="https://use.fontawesome.com/d36af44873.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div  class="container" ng-controller="CalcCtrl">
+    <h1 class="text-center">ROI Calculator</h1>
+    <!-- Revenue start -->
+      <div class="row">
+        <div class="col-md-8">
+          <div class="header">
+            <p class="title">Enter Revenue Details</p>
+          </div>
+            <div class="list">
+              [ <a href="" ng-click="deleteRv()">Delete Item</a> <i class="fa fa-check-square" aria-hidden="true"></i> ]
+              <ul class="unstyled">
+                  <li ng-repeat="item in items">
+                      <span class="done-{{item.done}}">{{item.text}}</span>,
+                      <span class="done-{{item.done}}">{{item.once | currency}}</span>,                      <span class="done-{{item.done}}">{{item.monthly | currency}}</span>                      <input type="checkbox" ng-model="item.done">
+
+                  </li>
+              </ul>
+              <form class="form-group clearfix" ng-submit="addItem()">
+                <input type="text" ng-model="itemText" size="30"
+                      placeholder="add new item here" required>
+                <input type="number" ng-model="itemOne" size="30"
+                      placeholder="add one-time amount" required>
+                <input type="number" ng-model="itemMonthly" size="30"
+                      placeholder="add monthly amount" required>
+                <input class="btn btn-primary btn-sm" type="submit" value="Add Revenue Item">
+              </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+          <div class="header">
+            <p class="title">Revenue Total <i class="fa fa-usd" aria-hidden="true"></i></p>
+          </div>
+            <div class="results">
+              <span ng-model="revTotalOne">One-Time: {{items | sumOfValue:'once' | currency}}</span><br>
+              <span ng-model="revTotalMonthly">Monthly: {{items | sumOfValue:'monthly' | currency}}</span><br>
+              <span>Total: {{(items | sumOfValue:'once') + (items | sumOfValue:'monthly') * 12 | currency  }}</span>
+            </div>
+        </div>
+    </div>
+    <!-- Expense start -->
+      <div class="row">
+        <div class="col-md-8">
+          <div class="header">
+            <p class="title">Enter Expense Details</p>
+          </div>
+            <div class="list">
+              [ <a href="" ng-click="deleteExp()">Delete Expense</a> <i class="fa fa-check-square" aria-hidden="true"></i> ]
+              <ul class="unstyled">
+                  <li ng-repeat="expense in expenses">
+                      <span class="done-{{expense.done}}">{{expense.text}}</span>,
+                      <span class="done-{{expense.done}}">{{expense.once | currency}}</span>,                      <span class="done-{{expense.done}}">{{expense.monthly | currency}}</span>
+                      <input type="checkbox" ng-model="expense.done">
+                  </li>
+              </ul>
+              <form class="form-group clearfix" ng-submit="addExpense()">
+                <input type="text" ng-model="expenseText" size="30"
+                      placeholder="add new expense here" required>
+                <input type="number" ng-model="expenseOne" size="30"
+                      placeholder="add one-time amount" required>
+                <input type="number" ng-model="expenseMonthly" size="30"
+                      placeholder="add monthly amount" required>
+                <input class="btn btn-primary btn-sm" type="submit" value="Add Expense Item">
+              </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+          <div class="header">
+            <p class="title">Expense Total <i class="fa fa-usd" aria-hidden="true"></i></p>
+          </div>
+            <div class="results">
+              <span>One-Time: {{expenses | sumOfValue:'once' | currency}}</span><br>
+              <span>Monthly: {{expenses | sumOfValue:'monthly' | currency}}</span><br>
+              <span>Total: {{(expenses | sumOfValue:'once') + (expenses | sumOfValue:'monthly') * 12 | currency  }}</span>
+            </div>
+        </div>
+      </div>
+    <!-- Contribution start -->
+      <div class="row">
+        <div>
+          <div class="col-md-4 right">
+            <div class="header">
+              <p class="title">Contribution</p>
+            </div>
+              <div class="results">
+                <span>Contribution Profit Monthly: {{(items | sumOfValue:'monthly') - (expenses | sumOfValue:'monthly') | currency}}</span><br>
+                <span>Contribution Profit Total: {{((items | sumOfValue:'once') + (items | sumOfValue:'monthly') * 12) - ((expenses | sumOfValue:'once') + (expenses | sumOfValue:'monthly') * 12)  | currency }}</span><br>
+                <span>Contribution Margin: {{(((items | sumOfValue:'once') + (items | sumOfValue:'monthly') * 12) - ((expenses | sumOfValue:'once') + (expenses | sumOfValue:'monthly') * 12)) / (((items | sumOfValue:'once') + (items | sumOfValue:'monthly') * 12)) | percentage: 1}} </span><br>
+                <span>Capital ROI (Months): {{((expenses | sumOfValue:'once') - (items | sumOfValue:'once')) / ((items | sumOfValue:'monthly') - (expenses | sumOfValue:'monthly')) | number:1  }}</span>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div> <!-- CalcCtrl controller end -->
+</body>
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script type="text/javascript" src="app.js">
+</script>
+</html>
