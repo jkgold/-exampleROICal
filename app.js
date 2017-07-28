@@ -28,14 +28,14 @@ angular.module("calcApp", [])
   // Revenue items
   $scope.items = [
     {
-      text: "Event tickets",
-      once: 100,
-      monthly: 50,
+      text: "tickets on shuttle",
+      once: 5000,
+      monthly: 10000,
       done: false
     }, {
-      text: "Whitepaper downloads",
-      once: 500,
-      monthly: 100,
+      text: "Call to Earth",
+      once: 55,
+      monthly: 250,
       done: false
     }
   ];
@@ -67,14 +67,14 @@ angular.module("calcApp", [])
   // Expenses items
   $scope.expenses = [
     {
-      text: "Event space",
-      once: 400,
-      monthly: 20,
+      text: "space ship",
+      once: 1000000,
+      monthly: 5000000,
       done: false
     }, {
-      text: "Travel",
-      once: 350,
-      monthly: 10,
+      text: "Fuel",
+      once: 10000,
+      monthly: 30000,
       done: false
     }
   ];
