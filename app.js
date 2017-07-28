@@ -25,7 +25,20 @@ angular.module("calcApp", [])
     }])
 
   .controller("CalcCtrl", function($scope) {
-
+  // Revenue items
+  $scope.items = [
+    {
+      text: "Event tickets",
+      once: 100,
+      monthly: 50,
+      done: false
+    }, {
+      text: "Whitepaper downloads",
+      once: 500,
+      monthly: 100,
+      done: false
+    }
+  ];
 
   $scope.addItem = function() {
     $scope.items.push({
@@ -51,7 +64,20 @@ angular.module("calcApp", [])
     });
   };
 
-
+  // Expenses items
+  $scope.expenses = [
+    {
+      text: "Event space",
+      once: 400,
+      monthly: 20,
+      done: false
+    }, {
+      text: "Travel",
+      once: 350,
+      monthly: 10,
+      done: false
+    }
+  ];
 
   $scope.addExpense = function() {
     $scope.expenses.push({
